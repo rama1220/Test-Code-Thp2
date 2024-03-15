@@ -2,10 +2,19 @@ import Logo from "../assets/logo.png";
 import HomeLogo from "../assets/home1.png";
 import Menu2 from "../assets/menu2.png";
 import { Link } from "react-router-dom";
-// import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
+import { useEffect, useState } from "react";
 export default function HalamanUtama() {
-  //   const { useData } = useAuth();
-  //   console.log(useData);
+  const { userData } = useAuth();
+  const [currentSlide, setCurrentSlide] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide % 3) + 1);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <div className="container-page">
@@ -14,13 +23,13 @@ export default function HalamanUtama() {
         </div>
         <div className="bg-motif">
           <div className="box-customer">
-            <p>Good Night,</p>
-            <p className="name">Guntur Saputro</p>
+            <p>{userData?.result?.greeting},</p>
+            <p className="name">{userData?.result?.name}</p>
             <div className="barcode">
               <div className="left">
                 <Link to="/BarcodePage">
                   <div className="img-code">
-                    <img src="https://chart.googleapis.com/chart?chl=5133198517940&chs=250x250&cht=qr&chld=H%7C0" alt="" />
+                    <img src={userData?.result?.qrcode} alt="" />
                   </div>
                 </Link>
                 <hr />
@@ -29,11 +38,11 @@ export default function HalamanUtama() {
                 <div className="status-poit">
                   <div className="saldo">
                     <p>Saldo</p>
-                    <p className="nominal"> Rp. 678000</p>
+                    <p className="nominal"> Rp. {userData?.result?.saldo}</p>
                   </div>
                   <div className="point">
                     <p>Points</p>
-                    <p className="total-point">3.500</p>
+                    <p className="total-point">{userData?.result?.point}</p>
                   </div>
                 </div>
               </div>
@@ -41,7 +50,16 @@ export default function HalamanUtama() {
           </div>
         </div>
         <div className="box-slider">
-          <img src={Logo} alt="" />
+          {userData?.result?.banner.map((item, index) => (
+            <img
+              src={item}
+              alt=""
+              key={index}
+              style={{
+                transform: `translateX(-${(currentSlide - 1) * 100}%)`,
+              }}
+            />
+          ))}
         </div>
         <div className="box-view">
           <div className="dot">

@@ -1,12 +1,16 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import PropTypes from "prop-types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
+
 const AuthProvider = ({ children }) => {
+const [userData, setUserData] = useState({});
+
+
   const endpoint = "https://soal.staging.id";
 
   const Login = async (grant_type, client_secret, client_id, username, password) => {
@@ -43,6 +47,7 @@ const AuthProvider = ({ children }) => {
         },
       });
       console.log(response.data);
+      setUserData(response.data);
       return response.data;
     } catch (error) {
       console.error("Failed to fetch home data:", error);
@@ -50,7 +55,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const values = { Login, Home };
+  const values = { Login, Home, userData };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
