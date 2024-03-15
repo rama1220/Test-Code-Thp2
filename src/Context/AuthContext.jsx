@@ -9,6 +9,7 @@ const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
 const [userData, setUserData] = useState({});
+const [menuData, setMenu]= useState({})
 
 
   const endpoint = "https://soal.staging.id";
@@ -29,6 +30,7 @@ const [userData, setUserData] = useState({});
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("token_type", token_type);
         await Home(token_type, access_token);
+        await Menu(token_type, access_token)
         return response.data;
       } else {
         throw new Error("Failed to receive access token or token type");
@@ -55,7 +57,25 @@ const [userData, setUserData] = useState({});
     }
   };
 
-  const values = { Login, Home, userData };
+  const Menu = async (bearer, token) => {
+    try{
+      const response = await axios.post(`${endpoint}/api/menu`,{
+        show_all : "1"
+      },{
+        headers: {
+          Authorization: `${bearer} ${token}`,
+        }
+      })
+      console.log(response.data);
+      setMenu(response.data);
+      return response.data;
+    }catch(error){
+      console.error("Failed to fetch menu data:", error);
+    }
+    
+  }
+
+  const values = { Login, Home, Menu, userData, menuData };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

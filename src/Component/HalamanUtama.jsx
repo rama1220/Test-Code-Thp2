@@ -1,6 +1,5 @@
 import Logo from "../assets/logo.png";
-import HomeLogo from "../assets/home1.png";
-import Menu2 from "../assets/menu2.png";
+import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { useEffect, useState } from "react";
@@ -76,16 +75,7 @@ export default function HalamanUtama() {
             </span>
           </p>
         </div>
-        <div className="box-navigate">
-          <div className="logo-icon">
-            <img src={HomeLogo} alt="" />
-            home
-          </div>
-          <div className="logo-icon">
-            <img src={Menu2} alt="" />
-            Menu
-          </div>
-        </div>
+        <Footer />
       </div>
     </>
   );
