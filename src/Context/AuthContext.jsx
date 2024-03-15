@@ -29,9 +29,11 @@ const AuthProvider = ({ children }) => {
     baseURL: "https://cors-anywhere.herokuapp.com/https://soal.staging.id",
   });
 
+  const endpoint = "https://soal.staging.id";
+
   const Login = async (grant_type, client_secret, client_id, username, password) => {
     try {
-      const response = await instance.post("/oauth/token", {
+      const response = await axios.post(`${endpoint}/oauth/token`, {
         grant_type: grant_type,
         client_secret: client_secret,
         client_id: client_id,
@@ -44,7 +46,11 @@ const AuthProvider = ({ children }) => {
       if (access_token && token_type) {
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("token_type", token_type);
+        console.log(response.data);
         setUser(true);
+        console.log(response.data);
+        window.location.href = "/HalamanUtama";
+
         return response.data;
       } else {
         throw new Error("Failed to receive access token or token type");
