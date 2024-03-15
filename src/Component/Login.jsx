@@ -1,12 +1,12 @@
 import Logo from "../assets/logo.png";
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { Login } = useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const grant_type = "password";
   const client_secret = "0a40f69db4e5fd2f4ac65a090f31b823";
   const client_id = "e78869f77986684a";
@@ -15,6 +15,7 @@ export default function Login() {
     e.preventDefault();
     try {
       await Login(grant_type, client_secret, client_id, username, password);
+      navigate("/HalamanUtama");
     } catch (error) {
       console.error("Failed to log in:", error.message);
     }
