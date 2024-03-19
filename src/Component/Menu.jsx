@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import Footer from "./Footer";
-import { useAuth } from "../Context/AuthContext";
+// import { useAuth } from "../Context/AuthContext";
 
 export default function Menu() {
-  const { menuData } = useAuth();
+  /* const { menuData } = useAuth(); */
+  const menu = JSON.parse(localStorage.getItem("DataMenu"));
 
   useEffect(() => {
     const menuList = document.querySelector(".menu-title ul");
@@ -27,14 +28,14 @@ export default function Menu() {
         </div>
         <div className="menu-title">
           <ul>
-            {menuData?.result?.categories?.map((category, index) => (
+            {menu?.result?.categories?.map((category, index) => (
               <li key={index}>{category.category_name}</li>
             ))}
           </ul>
         </div>
 
         <div className="menu-item">
-          {menuData?.result?.categories?.map((category, index) => (
+          {menu?.result?.categories?.map((category, index) => (
             <div key={index} className="menu-title-item">
               <h4>{category.category_name}</h4>
               <div className="menu-list">

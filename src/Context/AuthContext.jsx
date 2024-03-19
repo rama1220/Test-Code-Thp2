@@ -49,6 +49,7 @@ const [menuData, setMenu]= useState({})
         },
       });
       console.log(response.data);
+      localStorage.setItem("DataUser", JSON.stringify(response.data));
       setUserData(response.data);
       return response.data;
     } catch (error) {
@@ -67,6 +68,7 @@ const [menuData, setMenu]= useState({})
         }
       })
       console.log(response.data);
+      localStorage.setItem("DataMenu", JSON.stringify(response.data));
       setMenu(response.data);
       return response.data;
     }catch(error){

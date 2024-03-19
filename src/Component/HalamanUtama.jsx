@@ -1,13 +1,11 @@
 import Logo from "../assets/logo.png";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
-import { useAuth } from "../Context/AuthContext";
 import { useEffect, useState } from "react";
 export default function HalamanUtama() {
-  const { userData } = useAuth();
   const [currentSlide, setCurrentSlide] = useState(1);
-
-  useEffect(() => {
+  const data = JSON.parse(localStorage.getItem("DataUser"));
+   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide % 3) + 1);
     }, 2000);
@@ -22,13 +20,13 @@ export default function HalamanUtama() {
         </div>
         <div className="bg-motif">
           <div className="box-customer">
-            <p>{userData?.result?.greeting},</p>
-            <p className="name">{userData?.result?.name}</p>
+            <p>{data?.result?.greeting},</p>
+            <p className="name">{data?.result?.name}</p>
             <div className="barcode">
               <div className="left">
                 <Link to="/BarcodePage">
                   <div className="img-code">
-                    <img src={userData?.result?.qrcode} alt="" />
+                    <img src={data?.result?.qrcode} alt="" />
                   </div>
                 </Link>
                 <hr />
@@ -37,11 +35,11 @@ export default function HalamanUtama() {
                 <div className="status-poit">
                   <div className="saldo">
                     <p>Saldo</p>
-                    <p className="nominal"> Rp. {userData?.result?.saldo}</p>
+                    <p className="nominal"> Rp. {data?.result?.saldo}</p>
                   </div>
                   <div className="point">
                     <p>Points</p>
-                    <p className="total-point">{userData?.result?.point}</p>
+                    <p className="total-point">{data?.result?.point}</p>
                   </div>
                 </div>
               </div>
@@ -49,7 +47,7 @@ export default function HalamanUtama() {
           </div>
         </div>
         <div className="box-slider">
-          {userData?.result?.banner.map((item, index) => (
+          {data?.result?.banner.map((item, index) => (
             <img
               src={item}
               alt=""
