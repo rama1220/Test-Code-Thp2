@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import Footer from "./Footer";
-// import { useAuth } from "../Context/AuthContext";
-
 export default function Menu() {
-  /* const { menuData } = useAuth(); */
   const menu = JSON.parse(localStorage.getItem("DataMenu"));
 
   useEffect(() => {
