@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 export default function HalamanUtama() {
-  const { logout } = useAuth();
+  const { LogOut } = useAuth();
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(1);
   const data = JSON.parse(localStorage.getItem("DataUser"));
@@ -18,7 +18,7 @@ export default function HalamanUtama() {
   }, []);
 
 const handleLogOut = () => {
-  logout();
+  LogOut();
   navigate("/");
 };
 
