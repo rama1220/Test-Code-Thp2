@@ -1,16 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import PropTypes from "prop-types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 
 const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
-
 const AuthProvider = ({ children }) => {
-const [userData, setUserData] = useState({});
-const [menuData, setMenu]= useState({})
-
 
   const endpoint = "https://soal.staging.id";
 
@@ -30,7 +26,7 @@ const [menuData, setMenu]= useState({})
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("token_type", token_type);
         await Home(token_type, access_token);
-        await Menu(token_type, access_token)
+        await Menu(token_type, access_token);
         return response.data;
       } else {
         throw new Error("Failed to receive access token or token type");
@@ -49,9 +45,7 @@ const [menuData, setMenu]= useState({})
         },
       });
       console.log(response.data);
-      localStorage.setItem("DataUser", JSON.stringify(response.data));
-      setUserData(response.data);
-      return response.data;
+      localStorage.setItem("DataUser", JSON.stringify(response.data));      return response.data;
     } catch (error) {
       console.error("Failed to fetch home data:", error);
       throw error;
@@ -59,25 +53,34 @@ const [menuData, setMenu]= useState({})
   };
 
   const Menu = async (bearer, token) => {
-    try{
-      const response = await axios.post(`${endpoint}/api/menu`,{
-        show_all : "1"
-      },{
-        headers: {
-          Authorization: `${bearer} ${token}`,
+    try {
+      const response = await axios.post(
+        `${endpoint}/api/menu`,
+        {
+          show_all: "1",
+        },
+        {
+          headers: {
+            Authorization: `${bearer} ${token}`,
+          },
         }
-      })
+      );
       console.log(response.data);
       localStorage.setItem("DataMenu", JSON.stringify(response.data));
-      setMenu(response.data);
       return response.data;
-    }catch(error){
+    } catch (error) {
       console.error("Failed to fetch menu data:", error);
     }
-    
-  }
+  };
 
-  const values = { Login, Home, Menu, userData, menuData };
+  const LogOut = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("token_type");
+    localStorage.removeItem("DataUser");
+    localStorage.removeItem("DataMenu");
+  };
+
+  const values = { Login, Home, Menu, LogOut };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

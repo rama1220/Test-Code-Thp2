@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import {useAuth} from "../Context/AuthContext"
 export default function BarcodePage() {
-  const {userData} = useAuth()
+  const data = JSON.parse(localStorage.getItem("DataUser"));
+
   return (
     <>
       <div className="container-page">
@@ -14,7 +14,7 @@ export default function BarcodePage() {
         </Link>
         <div className="barcode-container">
           <p>Show the QR Code below to the cashier</p>
-          <img src={userData?.result?.qrcode} alt="" />
+          <img src={data?.result?.qrcode} alt="" />
         </div>
       </div>
     </>

@@ -210,10 +210,10 @@ hr {
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 .logo-icon img {
   width: 25px;
-  cursor: pointer;
 }
 .barcode-container {
   display: flex;
@@ -271,6 +271,7 @@ hr {
 .menu-item {
   background-color: white;
   padding-bottom: 50px;
+  cursor: pointer;
 }
 .menu-title-item h4 {
   padding: 20px 0 20px 20px;
