@@ -61,11 +61,17 @@
 }
 .logo-page {
   max-width: 450px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .logo-page img {
   width: 130px;
   padding-left: 2rem;
+}
+.logout svg {
+  padding-top: 8px;
+  padding-right: 2rem;
 }
 .bg-motif {
   max-width: 450px;
@@ -212,6 +218,9 @@ hr {
   gap: 5px;
   cursor: pointer;
 }
+.logo-page {
+  cursor: pointer;
+}
 .logo-icon img {
   width: 25px;
 }
@@ -238,6 +247,7 @@ hr {
 
 .menu-title {
   overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
   scrollbar-width: none;
   background-color: white;
