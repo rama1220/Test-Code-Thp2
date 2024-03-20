@@ -282,6 +282,7 @@ hr {
   background-color: white;
   padding-bottom: 50px;
   cursor: pointer;
+  overflow-y: auto;
 }
 .menu-title-item h4 {
   padding: 20px 0 20px 20px;
@@ -295,10 +296,6 @@ hr {
 }
 .image-menu img {
   width: 90px;
-}
-
-.menu-item {
-  overflow-y: auto;
 }
 
 .menu-item::-webkit-scrollbar {

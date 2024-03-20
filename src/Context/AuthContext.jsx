@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("token_type", token_type);
         await Home(token_type, access_token);
         await Menu(token_type, access_token);
+        window.location.href = "/HalamanUtama";
         return response.data;
       } else {
         throw new Error("Failed to receive access token or token type");
