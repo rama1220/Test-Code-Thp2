@@ -7,7 +7,6 @@ const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-
   const endpoint = "https://soal.staging.id";
 
   const Login = async (grant_type, client_secret, client_id, username, password) => {
@@ -46,7 +45,8 @@ const AuthProvider = ({ children }) => {
         },
       });
       console.log(response.data);
-      localStorage.setItem("DataUser", JSON.stringify(response.data));      return response.data;
+      localStorage.setItem("DataUser", JSON.stringify(response.data));
+      return response.data;
     } catch (error) {
       console.error("Failed to fetch home data:", error);
       throw error;
